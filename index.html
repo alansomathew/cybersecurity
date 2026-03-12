@@ -4,123 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cyber Security Awareness</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: #0a0c10;
-      --panel: #0f1318;
-      --border: #1e2a38;
-      --accent: #00c8ff;
-      --text: #c9d8e8;
-      --muted: #4a6070;
-      --warn-bg: #0a0c10;
-      --warn-accent: #ff2020;
-    }
-
     body {
-      font-family: 'Rajdhani', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f9;
+      color: #1a2332;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background 0.4s, color 0.4s;
     }
 
-    body.warning-mode {
-      --bg: #100505;
-      --panel: #1a0808;
-      --border: #4a1010;
-      --accent: var(--warn-accent);
-      background: var(--bg);
-      animation: pulse-bg 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-bg {
-      0%, 100% { background-color: #100505; }
-      50% { background-color: #1c0707; }
-    }
-
-    /* ── HEADER ── */
+    /* HEADER */
     header {
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 18px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 48px;
-      border-bottom: 1px solid var(--border);
-      background: var(--panel);
-      position: relative;
-      transition: border-color 0.4s, background 0.4s;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(0,200,255,0.03) 50%, transparent 100%);
-      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .shield-icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
+    .shield {
+      width: 40px;
+      height: 40px;
     }
-
-    .shield-icon path { transition: fill 0.4s, stroke 0.4s; }
 
     h1 {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      text-transform: uppercase;
-      transition: color 0.4s;
-      text-shadow: 0 0 18px rgba(0,200,255,0.35);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a2332;
+      letter-spacing: 0.01em;
     }
 
-    body.warning-mode h1 {
-      text-shadow: 0 0 18px rgba(255,32,32,0.5);
-      animation: flicker 2s infinite;
-    }
-
-    @keyframes flicker {
-      0%, 95%, 100% { opacity: 1; }
-      96% { opacity: 0.7; }
-      98% { opacity: 0.9; }
+    h1 span {
+      color: #2563eb;
     }
 
     .date-badge {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #64748b;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
       padding: 6px 14px;
-      border-radius: 4px;
-      transition: border-color 0.4s, color 0.4s;
-      white-space: nowrap;
+      border-radius: 20px;
     }
 
-    body.warning-mode .date-badge { color: #cc4444; border-color: #4a1010; }
-
-    /* ── SCAN LINE EFFECT ── */
-    .scanlines {
-      position: fixed; inset: 0; pointer-events: none; z-index: 100;
-      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px);
-      opacity: 0.6;
-    }
-
-    /* ── MAIN ── */
+    /* MAIN */
     main {
       flex: 1;
       display: flex;
@@ -130,269 +70,393 @@
     }
 
     .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
       width: 100%;
-      max-width: 480px;
-      padding: 44px 48px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
-      box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,200,255,0.05);
+      max-width: 460px;
+      padding: 40px 44px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     }
 
-    body.warning-mode .card {
-      box-shadow: 0 0 60px rgba(255,0,0,0.15), 0 0 0 1px rgba(255,32,32,0.15);
-      border-color: #4a1010;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      transition: background 0.4s;
-    }
-
-    .card-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 24px;
+    .card-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-    .card-tag::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
-    .question {
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      background: #eff6ff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-title {
       font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.55;
-      margin-bottom: 32px;
-      transition: color 0.4s;
+      font-weight: 700;
+      color: #1a2332;
     }
 
-    .field { margin-bottom: 20px; }
+    .card-subtitle {
+      font-size: 0.88rem;
+      color: #64748b;
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    .divider {
+      height: 1px;
+      background: #f1f5f9;
+      margin-bottom: 28px;
+    }
+
+    /* FIELDS */
+    .field { margin-bottom: 18px; }
 
     label {
       display: block;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-      transition: color 0.4s;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
     }
 
     input[type="email"],
     input[type="password"] {
       width: 100%;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--text);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.05em;
+      padding: 11px 14px 11px 40px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      color: #1a2332;
+      background: #fafafa;
       outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s, background 0.4s;
-      caret-color: var(--accent);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(0,200,255,0.08);
-      background: rgba(0,200,255,0.03);
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      background: #fff;
     }
 
-    body.warning-mode input:focus {
-      box-shadow: 0 0 0 3px rgba(255,32,32,0.1);
-      background: rgba(255,32,32,0.03);
+    input.error-input {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
     }
 
-    input::placeholder { color: var(--muted); opacity: 0.6; }
+    .input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+    }
 
+    /* VALIDATION MESSAGE */
+    .field-msg {
+      font-size: 0.78rem;
+      margin-top: 5px;
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-msg.show { display: flex; }
+    .field-msg.warn { color: #d97706; }
+    .field-msg.ok   { color: #16a34a; }
+
+    /* START BUTTON */
     .btn-start {
       width: 100%;
       margin-top: 8px;
-      padding: 14px;
-      background: var(--accent);
+      padding: 13px;
+      background: #2563eb;
       border: none;
-      border-radius: 4px;
-      color: #000;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
       cursor: pointer;
-      transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-start::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
     }
 
     .btn-start:hover {
-      box-shadow: 0 0 24px rgba(0,200,255,0.4);
-      transform: translateY(-1px);
+      background: #1d4ed8;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
     }
 
-    body.warning-mode .btn-start {
-      background: var(--warn-accent);
-      box-shadow: 0 0 30px rgba(255,32,32,0.4);
+    .btn-start:active { transform: translateY(1px); }
+
+    /* RED THEME ON SUCCESS */
+    body.red-mode header {
+      border-bottom-color: #fca5a5;
+      box-shadow: 0 2px 8px rgba(239,68,68,0.1);
     }
+    body.red-mode h1 span { color: #dc2626; }
+    body.red-mode .card {
+      border-color: #fca5a5;
+      box-shadow: 0 4px 24px rgba(239,68,68,0.12);
+    }
+    body.red-mode .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: #dc2626;
+      border-radius: 12px 12px 0 0;
+    }
+    body.red-mode .card { position: relative; overflow: hidden; }
+    body.red-mode input:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
+    }
+    body.red-mode .btn-start {
+      background: #dc2626;
+    }
+    body.red-mode .btn-start:hover {
+      background: #b91c1c;
+      box-shadow: 0 4px 14px rgba(220,38,38,0.35);
+    }
+    body.red-mode .card-icon { background: #fef2f2; }
+    body.red-mode .card-icon svg { stroke: #dc2626; }
+    body.red-mode .card-title { color: #dc2626; }
+    body.red-mode label { color: #991b1b; }
+    body.red-mode .date-badge {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #dc2626;
+    }
+    body.red-mode footer {
+      border-top-color: #fca5a5;
+      background: #fff5f5;
+    }
+    body.red-mode .divider { background: #fee2e2; }
 
-    .btn-start:active { transform: translateY(0); }
-
-    /* ── WARNING BANNER ── */
-    .warning-banner {
+    /* WARNING ALERT (after successful fill) */
+    .alert-box {
       display: none;
-      margin-top: 24px;
-      padding: 16px 20px;
-      background: rgba(255, 32, 32, 0.08);
-      border: 1px solid rgba(255, 32, 32, 0.4);
-      border-radius: 4px;
-      border-left: 4px solid #ff2020;
-      position: relative;
-      animation: slide-in 0.4s ease;
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-radius: 8px;
+      animation: fadeSlide 0.35s ease;
     }
 
-    @keyframes slide-in {
-      from { opacity: 0; transform: translateY(-10px); }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .warning-banner.show { display: block; }
+    .alert-box.show { display: flex; gap: 12px; }
 
-    .warning-banner-title {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: #ff2020;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .alert-box.warning {
+      background: #fef2f2;
+      border: 1.5px solid #dc2626;
     }
 
-    .warning-banner-title svg { width: 14px; height: 14px; }
+    .alert-icon { flex-shrink: 0; margin-top: 2px; }
 
-    .warning-banner p {
-      font-size: 0.95rem;
-      color: #ff7070;
+    .alert-content {}
+    .alert-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: #b91c1c;
+    }
+
+    .alert-text {
+      font-size: 0.83rem;
       line-height: 1.5;
-      font-weight: 600;
+      color: #6b7280;
     }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
-      padding: 16px 48px;
-      border-top: 1px solid var(--border);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      padding: 14px 48px;
       display: flex;
       justify-content: space-between;
-      transition: border-color 0.4s;
+      font-size: 0.75rem;
+      color: #94a3b8;
     }
 
-    @media (max-width: 600px) {
-      header { padding: 16px 20px; }
-      .card { padding: 32px 24px; }
-      footer { flex-direction: column; gap: 6px; padding: 16px 20px; }
+    @media (max-width: 560px) {
+      header { padding: 14px 20px; }
+      h1 { font-size: 1.1rem; }
+      .card { padding: 28px 22px; }
+      footer { flex-direction: column; gap: 4px; padding: 12px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="scanlines"></div>
-
   <!-- HEADER -->
   <header>
     <div class="header-left">
-      <svg class="shield-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 4L6 10V22C6 31.5 13.2 40.3 22 43C30.8 40.3 38 31.5 38 22V10L22 4Z"
-              fill="rgba(0,200,255,0.08)" stroke="#00c8ff" stroke-width="1.5" class="shield-path"/>
-        <path d="M16 22L20 26L28 18" stroke="#00c8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-path"/>
+      <svg class="shield" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4L6 10V21C6 29.8 12.4 38 20 40C27.6 38 34 29.8 34 21V10L20 4Z"
+              fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+        <path d="M14 20.5L18 24.5L26 16.5" stroke="#2563eb" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <h1>Cyber Security Awareness</h1>
+      <h1>Cyber Security <span>Awareness</span></h1>
     </div>
-    <div class="date-badge">12 MARCH 2026</div>
+    <div class="date-badge">📅 12 March 2026</div>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main>
     <div class="card">
-      <div class="card-tag">// Security Checkpoint</div>
 
-      <p class="question">Please enter your Email ID and Password and press <strong>START</strong> to continue.</p>
+      <div class="card-header">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <div class="card-title">Secure Login</div>
+      </div>
 
+      <p class="card-subtitle">Please enter your <strong>Email ID</strong> and <strong>Password</strong>, then press <strong>Start</strong> to continue.</p>
+      <div class="divider"></div>
+
+      <!-- EMAIL -->
       <div class="field">
         <label for="email">Email ID</label>
-        <input type="email" id="email" placeholder="you@example.com" autocomplete="off"/>
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </span>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="off"/>
+        </div>
+        <div class="field-msg warn" id="emailMsg">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Please enter your Email ID.
+        </div>
       </div>
 
+      <!-- PASSWORD -->
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password"/>
-      </div>
-
-      <button class="btn-start" onclick="triggerWarning()">▶ &nbsp;START</button>
-
-      <div class="warning-banner" id="warningBanner">
-        <div class="warning-banner-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#ff2020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-          ⚠ SECURITY WARNING
+        <div class="input-wrap">
+          <span class="input-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </span>
+          <input type="password" id="password" placeholder="Enter your password"/>
         </div>
-        <p>Be careful with your passwords! Never share them with anyone — not even IT staff. Protect your credentials to stay safe online.</p>
+        <div class="field-msg warn" id="passMsg">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Please enter your Password.
+        </div>
       </div>
+
+      <button class="btn-start" onclick="handleStart()">▶ &nbsp; Start</button>
+
+      <!-- WARNING ALERT (shown only when both fields are filled) -->
+      <div class="alert-box warning alert-warning" id="warningAlert">
+        <div class="alert-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ea580c"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="alert-content">
+          <div class="alert-title">⚠ Be careful with your passwords!</div>
+          <p class="alert-text">Never share your password with anyone — including IT staff. Use strong, unique passwords and enable two-factor authentication for better protection.</p>
+        </div>
+      </div>
+
     </div>
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <span>CYBERSEC-AWARENESS-v2.6</span>
-    <span>CONFIDENTIAL // INTERNAL USE ONLY</span>
+    <span>© 2026 Cyber Security Awareness Program</span>
+    <span>Confidential — Internal Use Only</span>
   </footer>
 
   <script>
-    function triggerWarning() {
-      document.body.classList.add('warning-mode');
-      document.getElementById('warningBanner').classList.add('show');
+    function handleStart() {
+      const email    = document.getElementById('email');
+      const password = document.getElementById('password');
+      const emailMsg = document.getElementById('emailMsg');
+      const passMsg  = document.getElementById('passMsg');
+      const alertBox = document.getElementById('warningAlert');
 
-      // Update shield and check colors to red
-      document.querySelectorAll('.shield-path').forEach(el => {
-        el.setAttribute('fill', 'rgba(255,32,32,0.08)');
-        el.setAttribute('stroke', '#ff2020');
-      });
-      document.querySelectorAll('.check-path').forEach(el => {
-        el.setAttribute('stroke', '#ff2020');
-      });
+      let valid = true;
+
+      // Reset
+      email.classList.remove('error-input');
+      password.classList.remove('error-input');
+      emailMsg.classList.remove('show');
+      passMsg.classList.remove('show');
+      alertBox.classList.remove('show');
+
+      // Validate email
+      if (!email.value.trim()) {
+        email.classList.add('error-input');
+        emailMsg.classList.add('show');
+        valid = false;
+      }
+
+      // Validate password
+      if (!password.value.trim()) {
+        password.classList.add('error-input');
+        passMsg.classList.add('show');
+        valid = false;
+      }
+
+      // If both filled, show warning + red theme
+      if (valid) {
+        alertBox.classList.add('show');
+        document.body.classList.add('red-mode');
+      }
     }
+
+    // Clear error on input
+    document.getElementById('email').addEventListener('input', function () {
+      this.classList.remove('error-input');
+      document.getElementById('emailMsg').classList.remove('show');
+    });
+
+    document.getElementById('password').addEventListener('input', function () {
+      this.classList.remove('error-input');
+      document.getElementById('passMsg').classList.remove('show');
+    });
   </script>
 
 </body>
