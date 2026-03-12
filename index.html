@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Security Awareness</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0c10;
+      --panel: #0f1318;
+      --border: #1e2a38;
+      --accent: #00c8ff;
+      --text: #c9d8e8;
+      --muted: #4a6070;
+      --warn-bg: #0a0c10;
+      --warn-accent: #ff2020;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.warning-mode {
+      --bg: #100505;
+      --panel: #1a0808;
+      --border: #4a1010;
+      --accent: var(--warn-accent);
+      background: var(--bg);
+      animation: pulse-bg 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-bg {
+      0%, 100% { background-color: #100505; }
+      50% { background-color: #1c0707; }
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      position: relative;
+      transition: border-color 0.4s, background 0.4s;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(0,200,255,0.03) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .shield-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
+    .shield-icon path { transition: fill 0.4s, stroke 0.4s; }
+
+    h1 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      transition: color 0.4s;
+      text-shadow: 0 0 18px rgba(0,200,255,0.35);
+    }
+
+    body.warning-mode h1 {
+      text-shadow: 0 0 18px rgba(255,32,32,0.5);
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.7; }
+      98% { opacity: 0.9; }
+    }
+
+    .date-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: border-color 0.4s, color 0.4s;
+      white-space: nowrap;
+    }
+
+    body.warning-mode .date-badge { color: #cc4444; border-color: #4a1010; }
+
+    /* ── SCAN LINE EFFECT ── */
+    .scanlines {
+      position: fixed; inset: 0; pointer-events: none; z-index: 100;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px);
+      opacity: 0.6;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 480px;
+      padding: 44px 48px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,200,255,0.05);
+    }
+
+    body.warning-mode .card {
+      box-shadow: 0 0 60px rgba(255,0,0,0.15), 0 0 0 1px rgba(255,32,32,0.15);
+      border-color: #4a1010;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transition: background 0.4s;
+    }
+
+    .card-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-tag::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .question {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 32px;
+      transition: color 0.4s;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      transition: color 0.4s;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.4s;
+      caret-color: var(--accent);
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,200,255,0.08);
+      background: rgba(0,200,255,0.03);
+    }
+
+    body.warning-mode input:focus {
+      box-shadow: 0 0 0 3px rgba(255,32,32,0.1);
+      background: rgba(255,32,32,0.03);
+    }
+
+    input::placeholder { color: var(--muted); opacity: 0.6; }
+
+    .btn-start {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px;
+      background: var(--accent);
+      border: none;
+      border-radius: 4px;
+      color: #000;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-start::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+
+    .btn-start:hover {
+      box-shadow: 0 0 24px rgba(0,200,255,0.4);
+      transform: translateY(-1px);
+    }
+
+    body.warning-mode .btn-start {
+      background: var(--warn-accent);
+      box-shadow: 0 0 30px rgba(255,32,32,0.4);
+    }
+
+    .btn-start:active { transform: translateY(0); }
+
+    /* ── WARNING BANNER ── */
+    .warning-banner {
+      display: none;
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(255, 32, 32, 0.08);
+      border: 1px solid rgba(255, 32, 32, 0.4);
+      border-radius: 4px;
+      border-left: 4px solid #ff2020;
+      position: relative;
+      animation: slide-in 0.4s ease;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .warning-banner.show { display: block; }
+
+    .warning-banner-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: #ff2020;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .warning-banner-title svg { width: 14px; height: 14px; }
+
+    .warning-banner p {
+      font-size: 0.95rem;
+      color: #ff7070;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 16px 48px;
+      border-top: 1px solid var(--border);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      display: flex;
+      justify-content: space-between;
+      transition: border-color 0.4s;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .card { padding: 32px 24px; }
+      footer { flex-direction: column; gap: 6px; padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scanlines"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <svg class="shield-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 4L6 10V22C6 31.5 13.2 40.3 22 43C30.8 40.3 38 31.5 38 22V10L22 4Z"
+              fill="rgba(0,200,255,0.08)" stroke="#00c8ff" stroke-width="1.5" class="shield-path"/>
+        <path d="M16 22L20 26L28 18" stroke="#00c8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-path"/>
+      </svg>
+      <h1>Cyber Security Awareness</h1>
+    </div>
+    <div class="date-badge">12 MARCH 2026</div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="card">
+      <div class="card-tag">// Security Checkpoint</div>
+
+      <p class="question">Please enter your Email ID and Password and press <strong>START</strong> to continue.</p>
+
+      <div class="field">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="off"/>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password"/>
+      </div>
+
+      <button class="btn-start" onclick="triggerWarning()">▶ &nbsp;START</button>
+
+      <div class="warning-banner" id="warningBanner">
+        <div class="warning-banner-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff2020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          ⚠ SECURITY WARNING
+        </div>
+        <p>Be careful with your passwords! Never share them with anyone — not even IT staff. Protect your credentials to stay safe online.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>CYBERSEC-AWARENESS-v2.6</span>
+    <span>CONFIDENTIAL // INTERNAL USE ONLY</span>
+  </footer>
+
+  <script>
+    function triggerWarning() {
+      document.body.classList.add('warning-mode');
+      document.getElementById('warningBanner').classList.add('show');
+
+      // Update shield and check colors to red
+      document.querySelectorAll('.shield-path').forEach(el => {
+        el.setAttribute('fill', 'rgba(255,32,32,0.08)');
+        el.setAttribute('stroke', '#ff2020');
+      });
+      document.querySelectorAll('.check-path').forEach(el => {
+        el.setAttribute('stroke', '#ff2020');
+      });
+    }
+  </script>
+
+</body>
+</html>
