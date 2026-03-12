@@ -1,461 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyber Security Awareness</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <title>Sign in – Google Accounts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: #f4f6f9;
-      color: #1a2332;
+      font-family: 'Google Sans', 'Roboto', sans-serif;
+      background: #f8f9fa;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    /* HEADER */
-    header {
-      background: #ffffff;
-      border-bottom: 2px solid #e2e8f0;
-      padding: 18px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .shield {
-      width: 40px;
-      height: 40px;
-    }
-
-    h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #1a2332;
-      letter-spacing: 0.01em;
-    }
-
-    h1 span {
-      color: #2563eb;
-    }
-
-    .date-badge {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #64748b;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      padding: 6px 14px;
-      border-radius: 20px;
-    }
-
-    /* MAIN */
-    main {
-      flex: 1;
-      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 24px;
+      transition: background 0.5s;
     }
 
+    body.warned {
+      background: #fff5f5;
+    }
+
+    /* CARD */
     .card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
+      background: #fff;
+      border: 1px solid #dadce0;
+      border-radius: 28px;
       width: 100%;
-      max-width: 460px;
-      padding: 40px 44px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      max-width: 420px;
+      padding: 48px 44px 36px;
+      transition: border-color 0.5s, box-shadow 0.5s;
     }
 
-    .card-header {
+    body.warned .card {
+      border-color: #f5c6c6;
+      box-shadow: 0 4px 32px rgba(211,47,47,0.1);
+    }
+
+    /* GOOGLE LOGO */
+    .google-logo {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
+      justify-content: center;
+      margin-bottom: 28px;
     }
 
-    .card-icon {
-      width: 36px;
-      height: 36px;
-      background: #eff6ff;
-      border-radius: 8px;
+    .google-logo svg { width: 75px; height: 24px; }
+
+    /* HEADING */
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #202124;
+      text-align: center;
+      margin-bottom: 10px;
+      transition: color 0.4s;
+    }
+
+    body.warned .card h2 { color: #c62828; }
+
+    .card .subtitle {
+      font-size: 1rem;
+      color: #202124;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    /* AWARENESS BADGE */
+    .awareness-tag {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
+      background: #e8f0fe;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      color: #1a73e8;
+      font-weight: 500;
+      margin-bottom: 24px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background 0.4s, color 0.4s;
     }
 
-    .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a2332;
+    body.warned .awareness-tag {
+      background: #fce8e6;
+      color: #c62828;
     }
 
-    .card-subtitle {
-      font-size: 0.88rem;
-      color: #64748b;
-      margin-bottom: 28px;
-      line-height: 1.55;
-    }
-
-    .divider {
-      height: 1px;
-      background: #f1f5f9;
-      margin-bottom: 28px;
-    }
-
-    /* FIELDS */
-    .field { margin-bottom: 18px; }
-
-    label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 6px;
-    }
-
-    .input-wrap {
+    /* FLOATING LABEL INPUTS */
+    .field {
       position: relative;
+      margin-bottom: 24px;
     }
 
-    input[type="email"],
-    input[type="password"] {
+    .field input {
       width: 100%;
-      padding: 11px 14px 11px 40px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.92rem;
-      color: #1a2332;
-      background: #fafafa;
+      padding: 16px 14px 8px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1rem;
+      color: #202124;
+      background: transparent;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+      caret-color: #1a73e8;
     }
 
-    input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-      background: #fff;
+    .field input:focus {
+      border-color: #1a73e8;
+      border-width: 2px;
+      box-shadow: none;
     }
 
-    input.error-input {
-      border-color: #ef4444;
-      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    body.warned .field input:focus {
+      border-color: #d32f2f;
+      caret-color: #d32f2f;
     }
 
-    .input-icon {
+    .field input.err { border-color: #d93025; border-width: 2px; }
+
+    .field label {
       position: absolute;
-      left: 12px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: #94a3b8;
+      font-size: 1rem;
+      color: #80868b;
       pointer-events: none;
+      transition: all 0.15s ease;
+      background: #fff;
+      padding: 0 2px;
     }
 
-    /* VALIDATION MESSAGE */
-    .field-msg {
-      font-size: 0.78rem;
-      margin-top: 5px;
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label {
+      top: 0;
+      font-size: 0.72rem;
+      color: #1a73e8;
+    }
+
+    body.warned .field input:focus ~ label { color: #d32f2f; }
+
+    .field input.err ~ label { color: #d93025; }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: #d93025;
+      margin-top: 4px;
+      padding-left: 14px;
       display: none;
       align-items: center;
       gap: 4px;
     }
+    .field-error.show { display: flex; }
 
-    .field-msg.show { display: flex; }
-    .field-msg.warn { color: #d97706; }
-    .field-msg.ok   { color: #16a34a; }
+    /* FORGOT */
+    .forgot {
+      display: block;
+      font-size: 0.875rem;
+      color: #1a73e8;
+      font-weight: 500;
+      margin-top: -10px;
+      margin-bottom: 28px;
+      text-decoration: none;
+    }
+    .forgot:hover { text-decoration: underline; }
 
-    /* START BUTTON */
-    .btn-start {
-      width: 100%;
-      margin-top: 8px;
-      padding: 13px;
-      background: #2563eb;
+    /* FOOTER LINKS */
+    .card-footer-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .create-account {
+      font-size: 0.875rem;
+      color: #1a73e8;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    body.warned .create-account { color: #d32f2f; }
+    .create-account:hover { text-decoration: underline; }
+
+    /* SIGN IN BUTTON */
+    .btn-signin {
+      padding: 10px 28px;
+      background: #1a73e8;
       border: none;
-      border-radius: 8px;
+      border-radius: 4px;
       color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+      transition: background 0.25s, box-shadow 0.25s;
     }
 
-    .btn-start:hover {
-      background: #1d4ed8;
-      box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+    .btn-signin:hover {
+      background: #1557b0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    .btn-start:active { transform: translateY(1px); }
+    body.warned .btn-signin { background: #d32f2f; }
+    body.warned .btn-signin:hover { background: #b71c1c; }
 
-    /* RED THEME ON SUCCESS */
-    body.red-mode header {
-      border-bottom-color: #fca5a5;
-      box-shadow: 0 2px 8px rgba(239,68,68,0.1);
-    }
-    body.red-mode h1 span { color: #dc2626; }
-    body.red-mode .card {
-      border-color: #fca5a5;
-      box-shadow: 0 4px 24px rgba(239,68,68,0.12);
-    }
-    body.red-mode .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: #dc2626;
-      border-radius: 12px 12px 0 0;
-    }
-    body.red-mode .card { position: relative; overflow: hidden; }
-    body.red-mode input:focus {
-      border-color: #dc2626;
-      box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
-    }
-    body.red-mode .btn-start {
-      background: #dc2626;
-    }
-    body.red-mode .btn-start:hover {
-      background: #b91c1c;
-      box-shadow: 0 4px 14px rgba(220,38,38,0.35);
-    }
-    body.red-mode .card-icon { background: #fef2f2; }
-    body.red-mode .card-icon svg { stroke: #dc2626; }
-    body.red-mode .card-title { color: #dc2626; }
-    body.red-mode label { color: #991b1b; }
-    body.red-mode .date-badge {
-      background: #fef2f2;
-      border-color: #fca5a5;
-      color: #dc2626;
-    }
-    body.red-mode footer {
-      border-top-color: #fca5a5;
-      background: #fff5f5;
-    }
-    body.red-mode .divider { background: #fee2e2; }
-
-    /* WARNING ALERT (after successful fill) */
-    .alert-box {
+    /* WARNING MODAL OVERLAY */
+    .overlay {
       display: none;
-      margin-top: 22px;
-      padding: 16px 18px;
-      border-radius: 8px;
-      animation: fadeSlide 0.35s ease;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
     }
 
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .overlay.show { display: flex; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      overflow: hidden;
+      animation: slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
     }
 
-    .alert-box.show { display: flex; gap: 12px; }
-
-    .alert-box.warning {
-      background: #fef2f2;
-      border: 1.5px solid #dc2626;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .alert-icon { flex-shrink: 0; margin-top: 2px; }
-
-    .alert-content {}
-    .alert-title {
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-bottom: 3px;
-      color: #b91c1c;
+    .modal-top {
+      background: #d32f2f;
+      padding: 28px 28px 24px;
+      text-align: center;
     }
 
-    .alert-text {
-      font-size: 0.83rem;
+    .modal-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .modal-top h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .modal-top p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
       line-height: 1.5;
-      color: #6b7280;
+    }
+
+    .modal-body {
+      padding: 24px 28px;
+    }
+
+    .tip-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .tip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d32f2f;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .tip-row p {
+      font-size: 0.85rem;
+      color: #444;
+      line-height: 1.55;
+    }
+
+    .modal-actions {
+      padding: 0 28px 24px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-understood {
+      padding: 10px 24px;
+      background: #d32f2f;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-understood:hover { background: #b71c1c; }
+
+    /* OUTSIDE HEADING */
+    .page-heading {
+      text-align: center;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 420px;
+    }
+    .page-heading h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #202124;
+      letter-spacing: -0.01em;
+      transition: color 0.4s;
+    }
+    body.warned .page-heading h1 { color: #c62828; }
+    .page-heading p {
+      font-size: 0.8rem;
+      color: #80868b;
+      margin-top: 5px;
+    }
+
+    /* DATE LINE */
+    .date-line {
+      font-size: 0.75rem;
+      color: #80868b;
+      text-align: center;
+      margin-top: 20px;
     }
 
     /* FOOTER */
     footer {
-      background: #ffffff;
-      border-top: 1px solid #e2e8f0;
-      padding: 14px 48px;
-      display: flex;
-      justify-content: space-between;
+      margin-top: 20px;
       font-size: 0.75rem;
-      color: #94a3b8;
+      color: #80868b;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    @media (max-width: 560px) {
-      header { padding: 14px 20px; }
-      h1 { font-size: 1.1rem; }
-      .card { padding: 28px 22px; }
-      footer { flex-direction: column; gap: 4px; padding: 12px 20px; }
-    }
+    footer a { color: #80868b; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-left">
-      <svg class="shield" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4L6 10V21C6 29.8 12.4 38 20 40C27.6 38 34 29.8 34 21V10L20 4Z"
-              fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
-        <path d="M14 20.5L18 24.5L26 16.5" stroke="#2563eb" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- OUTSIDE HEADING -->
+  <div class="page-heading">
+    <h1>Cyber Security Awareness</h1>
+    <p>12 March 2026 &nbsp;·&nbsp; Security Awareness Program</p>
+  </div>
+
+  <!-- GOOGLE ACCOUNTS CARD -->
+  <div class="card">
+
+    <!-- Google Logo SVG -->
+    <div class="google-logo">
+      <svg viewBox="0 0 272 92" xmlns="http://www.w3.org/2000/svg">
+        <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
+        <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
+        <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.67-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.26zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
+        <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
+        <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
+        <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65H35.29z" fill="#4285F4"/>
       </svg>
-      <h1>Cyber Security <span>Awareness</span></h1>
     </div>
-    <div class="date-badge">📅 12 March 2026</div>
-  </header>
 
-  <!-- MAIN -->
-  <main>
-    <div class="card">
+    <h2>Sign in</h2>
+    <p class="subtitle">Use your Google Account</p>
 
-      <div class="card-header">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-        </div>
-        <div class="card-title">Secure Login with Email</div>
+    <div class="awareness-tag" id="awarTag">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Cyber Security Awareness · 12 March 2026
+    </div>
+
+    <!-- EMAIL -->
+    <div class="field">
+      <input type="email" id="email" placeholder=" " autocomplete="off"/>
+      <label for="email">Email or phone</label>
+      <div class="field-error" id="emailErr">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#d93025" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Please enter your email.
       </div>
+    </div>
 
-      <p class="card-subtitle">Please enter your <strong>Email ID</strong> and <strong>Password</strong>, then press <strong>Start</strong> to continue.</p>
-      <div class="divider"></div>
-
-      <!-- EMAIL -->
-      <div class="field">
-        <label for="email">Email ID</label>
-        <div class="input-wrap">
-          <span class="input-icon">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </span>
-          <input type="email" id="email" placeholder="you@example.com" autocomplete="off"/>
-        </div>
-        <div class="field-msg warn" id="emailMsg">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          Please enter your Email ID.
-        </div>
+    <!-- PASSWORD -->
+    <div class="field">
+      <input type="password" id="password" placeholder=" "/>
+      <label for="password">Enter your password</label>
+      <div class="field-error" id="passErr">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#d93025" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Please enter your password.
       </div>
+    </div>
 
-      <!-- PASSWORD -->
-      <div class="field">
-        <label for="password">Password</label>
-        <div class="input-wrap">
-          <span class="input-icon">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-          </span>
-          <input type="password" id="password" placeholder="Enter your password"/>
-        </div>
-        <div class="field-msg warn" id="passMsg">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          Please enter your Password.
-        </div>
-      </div>
+    <a href="#" class="forgot">Forgot password?</a>
 
-      <button class="btn-start" onclick="handleStart()">▶ &nbsp; Start</button>
+    <div class="card-footer-links">
+      <a href="#" class="create-account">Create account</a>
+      <button class="btn-signin" onclick="handleSignIn()">Sign in</button>
+    </div>
 
-      <!-- WARNING ALERT (shown only when both fields are filled) -->
-      <div class="alert-box warning alert-warning" id="warningAlert">
-        <div class="alert-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ea580c"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="date-line">Cyber Security Awareness Program</div>
+  </div>
+
+  <footer>
+    <a href="#">Help</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </footer>
+
+  <!-- WARNING MODAL -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="modal-top">
+        <div class="modal-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
             <line x1="12" y1="9" x2="12" y2="13"/>
             <line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
         </div>
-        <div class="alert-content">
-          <div class="alert-title">⚠ Be careful with your passwords!</div>
-          <p class="alert-text">Never share your password with anyone — including IT staff. Use strong, unique passwords and enable two-factor authentication for better protection.</p>
+        <h3>⚠ Security Warning</h3>
+        <p>Don't share your password with anyone — ever.</p>
+      </div>
+      <div class="modal-body">
+        <div class="tip-row">
+          <div class="tip-dot"></div>
+          <p><strong>Google will never ask for your password</strong> via email, phone, or any third-party site.</p>
+        </div>
+        <div class="tip-row">
+          <div class="tip-dot"></div>
+          <p><strong>Never share your credentials</strong> with colleagues, IT staff, friends, or family.</p>
+        </div>
+        <div class="tip-row">
+          <div class="tip-dot"></div>
+          <p><strong>Use a unique, strong password</strong> and enable 2-Step Verification for extra protection.</p>
+        </div>
+        <div class="tip-row">
+          <div class="tip-dot"></div>
+          <p><strong>Beware of phishing pages</strong> that look like Google — always check the URL carefully.</p>
         </div>
       </div>
-
+      <div class="modal-actions">
+        <button class="btn-understood" onclick="closeModal()">I Understand</button>
+      </div>
     </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2026 Cyber Security Awareness Program</span>
-    <span>Confidential — Internal Use Only</span>
-  </footer>
+  </div>
 
   <script>
-    function handleStart() {
-      const email    = document.getElementById('email');
+    function handleSignIn() {
+      const email = document.getElementById('email');
       const password = document.getElementById('password');
-      const emailMsg = document.getElementById('emailMsg');
-      const passMsg  = document.getElementById('passMsg');
-      const alertBox = document.getElementById('warningAlert');
-
+      const emailErr = document.getElementById('emailErr');
+      const passErr = document.getElementById('passErr');
       let valid = true;
 
       // Reset
-      email.classList.remove('error-input');
-      password.classList.remove('error-input');
-      emailMsg.classList.remove('show');
-      passMsg.classList.remove('show');
-      alertBox.classList.remove('show');
+      email.classList.remove('err');
+      password.classList.remove('err');
+      emailErr.classList.remove('show');
+      passErr.classList.remove('show');
 
-      // Validate email
       if (!email.value.trim()) {
-        email.classList.add('error-input');
-        emailMsg.classList.add('show');
+        email.classList.add('err');
+        emailErr.classList.add('show');
         valid = false;
       }
-
-      // Validate password
       if (!password.value.trim()) {
-        password.classList.add('error-input');
-        passMsg.classList.add('show');
+        password.classList.add('err');
+        passErr.classList.add('show');
         valid = false;
       }
 
-      // If both filled, show warning + red theme
       if (valid) {
-        alertBox.classList.add('show');
-        document.body.classList.add('red-mode');
+        document.body.classList.add('warned');
+        document.getElementById('overlay').classList.add('show');
       }
     }
 
-    // Clear error on input
-    document.getElementById('email').addEventListener('input', function () {
-      this.classList.remove('error-input');
-      document.getElementById('emailMsg').classList.remove('show');
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    // Clear errors on type
+    document.getElementById('email').addEventListener('input', function() {
+      this.classList.remove('err');
+      document.getElementById('emailErr').classList.remove('show');
+    });
+    document.getElementById('password').addEventListener('input', function() {
+      this.classList.remove('err');
+      document.getElementById('passErr').classList.remove('show');
     });
 
-    document.getElementById('password').addEventListener('input', function () {
-      this.classList.remove('error-input');
-      document.getElementById('passMsg').classList.remove('show');
+    // Close on overlay click
+    document.getElementById('overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
     });
   </script>
 
